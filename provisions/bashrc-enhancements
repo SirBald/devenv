@@ -1,0 +1,17 @@
+# enable git autocompletion
+source /usr/share/bash-completion/completions/git
+
+# add branch name to command prompt
+GIT_PROMPT='/usr/lib/git-core/git-sh-prompt'
+if [ -f "${GIT_PROMPT}" ]; then
+  source "${GIT_PROMPT}"
+  PS1_branch="\e[35m\$(__git_ps1)\e[0m"
+  PS1=${PS1%???}${PS1_branch}'$ '
+fi
+
+# add time to command prompt
+PS1_time="[\D{%H:%M:%S}]"
+PS1="${PS1_time} ${PS1}"
+
+# add new line after prompt
+PS1=${PS1%??}'\n$ '
