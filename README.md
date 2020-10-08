@@ -48,3 +48,14 @@ You can optionally change **Host** to whatever you want.
 6. Select this connection on remote explorer and connect with *Vagrant*.
 7. To make your plugins work remotely open plugins explorer.
 In *LOCAL - INSTALLED* list find plugins you want to enable and click *Install in SSH: BlaBlaBla*.
+
+## CPP Environment
+
+When vagrant base environment is up and running to install CPP tools run one of the following command:
+```
+vagrant provision --provision-with cpp-tools
+```
+or
+```
+vagrant reload --provision-with cpp-tools
+```
