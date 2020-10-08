@@ -29,6 +29,10 @@ Vagrant.configure("2") do |config|
     type: "shell",
     path: "provisions/base-tools.sh",
     after: "bashrc-enhancement"
+  config.vm.provision "cpp-tools",
+    type: "shell",
+    path: "provisions/cpp-tools.sh",
+    run: "never"
 
   # If you want to use synced folder (for syncing files between host and guest
   # machines) then comment the next line which disables the vagrant's default
