@@ -1,5 +1,7 @@
 # Development environment
 
+To use virtual development environment you need to install [VirtualBox with Extension Pack](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com).
+
 ## Run base environment
 
 Base environment includes essential development tools like git.
