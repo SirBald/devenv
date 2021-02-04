@@ -3,7 +3,6 @@
 # vi: set ft=ruby :
 
 VAGRANT_BOX = "hashicorp/bionic64"
-VM_NAME = "base-devenv"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -17,8 +16,9 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 2
     vb.memory = "4096"
-    vb.name = VM_NAME
   end
+
+  config.vm.network "forwarded_port", guest: 1433, host: 2433, id: "MS SQL Server"
 
   VAGRANT_EXPERIMENTAL="dependency_provisioners"
   config.vm.provision "bashrc-enhancement",
@@ -32,6 +32,21 @@ Vagrant.configure("2") do |config|
   config.vm.provision "cpp-tools",
     type: "shell",
     path: "provisions/cpp-tools.sh",
+    run: "never"
+  config.vm.provision "dot-net-core",
+    type: "shell",
+    path: "provisions/dot-net-core.sh",
+    after: "base-tools",
+    run: "never"
+  config.vm.provision "mssql-server",
+    type: "shell",
+    path: "provisions/mssql-server.sh",
+    after: "base-tools",
+    run: "never"
+  config.vm.provision "nodejs",
+    type: "shell",
+    path: "provisions/nodejs.sh",
+    after: "base-tools",
     run: "never"
 
   # If you want to use synced folder (for syncing files between host and guest
