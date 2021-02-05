@@ -1,11 +1,13 @@
 #!/bin/sh
 
+echo "[SCRIPT] Install base development tools."
+
 apt-get update
 
-# install git
+echo "[STEP] Install Git."
 apt-get install --yes git
 
-# use aspell spellchecker in nano
+echo "[STEP] Use 'aspell' spellchecker in 'nano' editor."
 apt-get install --yes aspell
 NANO_CONFIG='/etc/nanorc'
 ASPELL_COMMAND='set speller "aspell -x -c"'
@@ -14,7 +16,7 @@ if ! grep -Fxq "${ASPELL_COMMAND}" "${NANO_CONFIG}"; then
   echo "${ASPELL_COMMAND}" >> "${NANO_CONFIG}"
 fi
 
-# bash prompt enchantments
+echo "[STEP] Bash prompt enchantments."
 BASHRC_FILE='/home/vagrant/.bashrc'
 BASHRC_ENHANCEMENT_FILE='/home/vagrant/.bashrc-enhancements'
 BASHRC_ENHANCEMENT_COMMAND="source ${BASHRC_ENHANCEMENT_FILE}"

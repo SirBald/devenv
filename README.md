@@ -66,6 +66,8 @@ In *LOCAL - INSTALLED* list find plugins you want to enable and click *Install i
 
 ## Additional Environments
 
+### Manual Provision
+
 When vagrant base environment is up and running to install additional tools or programs run the following command:
 ```
 vagrant provision --provision-with <provision-name>
@@ -75,6 +77,30 @@ where ```<provision-name>``` is one from the list:
 * ```dot-net-core``` - .NET Core
 * ```mssql-server``` - MS SQL Server
 * ```nodejs``` - Node.JS
+
+### Automatic Provision
+
+It is possible to run provision automatically on the first VM start up.
+Just find required tool mentioning in *Vagrantfile* configuration file and remove line ```run: "never"``` with trailing comma (,)
+on preceding line. For example:
+```
+# BEFORE
+config.vm.provision "cpp-tools",
+  type: "shell",
+  path: "provisions/cpp-tools.sh",
+  after: "base-tools",
+  run: "never"
+```
+```
+# AFTER
+config.vm.provision "cpp-tools",
+  type: "shell",
+  path: "provisions/cpp-tools.sh",
+  after: "base-tools"
+```
+Thereafter **CPP Tools** will be installed automatically during the first ```vagrant up``` since the last ```vagrant destroy```.
+
+More options when to run provision are described in [Vagrantfile documentation](https://www.vagrantup.com/docs/provisioning/basic_usage#run-once-always-or-never).
 
 ## Configure VSCode to connect to remote MS SQL Server
 

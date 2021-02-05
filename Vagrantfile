@@ -32,6 +32,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "cpp-tools",
     type: "shell",
     path: "provisions/cpp-tools.sh",
+    after: "base-tools",
     run: "never"
   config.vm.provision "dot-net-core",
     type: "shell",
