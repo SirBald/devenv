@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.network "forwarded_port", guest: 1433, host: 2433, id: "MS SQL Server"
+  config.vm.network "forwarded_port", guest: 5001, host: 5001, id: "HTTPS listened by Kestrel"
 
   VAGRANT_EXPERIMENTAL="dependency_provisioners"
   config.vm.provision "bashrc-enhancement",
@@ -38,6 +39,7 @@ Vagrant.configure("2") do |config|
     type: "shell",
     path: "provisions/dot-net-core.sh",
     after: "base-tools",
+    privileged: false,
     run: "never"
   config.vm.provision "mssql-server",
     type: "shell",

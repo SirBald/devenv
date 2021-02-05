@@ -11,3 +11,6 @@ sudo apt-get update
 sudo apt-get install -y apt-transport-https
 sudo apt-get update
 sudo apt-get install -y dotnet-sdk-5.0
+
+echo "[STEP] Install .NET Tools."
+dotnet tool install -g dotnet-format
