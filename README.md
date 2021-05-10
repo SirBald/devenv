@@ -3,40 +3,61 @@
 To use virtual development environment you need to install
 [VirtualBox with Extension Pack](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com).
 
-## Run base environment
+Then just clone the repository:
+```
+git clone git@github.com:SirBald/devenv.git
+cd devenv
+```
 
-Base environment includes essential development tools like git.
+# Run vagrant box
+```
+vagrant up <vm_name>
+```
+where ```<vm_name>```:
+* ```ubuntu1804x64``` - headless Ubuntu 18.04. This is the default VM, so its name can be skipped in ```up```, ```ssh``` and
+```halt``` commands.
+* ```windows10x64``` - windows 10 with GUI.
 
-1. Clone repository and run vagrant box
-    ```
-    git clone git@github.com:SirBald/devenv.git
-    cd devenv
-    vagrant up
-    vagrant ssh
-    ```
-2. Inside VM configure git (if you are using it)
-    ```
-    git config -e --global
-    ```
-    Change name and e-mail to meet yours:
-    ```
-    [user]
-            name = <your name>
-            email = <your e-mail>
-    ```
+# Connect to VM
 
-## Shutdown or destroy virtual environment
+To headless VMs connection is done via ssh:
+```
+vagrant up <vm_name>
+```
+GUI for VM which supports it is run automatically.
+
+
+# Shutdown or destroy virtual environment
 
 Shutdown
 ```
-vagrant halt
+vagrant halt <vm_name>
 ```
-Destroy
+Destroy. If ```<vm_name>``` is not provided then all VMs are going to be removed.
 ```
-vagrant destroy
+vagrant destroy <vm_name>
 ```
 
-## Configure VSCode
+# Available VMs
+
+## Ubuntu 18.04 (default)
+
+### Base environment
+
+Includes essential development tools like **Git**.
+
+Inside VM configure **Git** (if you are using it)
+```
+git config -e --global
+```
+Change name and e-mail to meet yours:
+```
+[user]
+        name = <your name>
+        email = <your e-mail>
+```
+
+### Configure VSCode
 
 This allows you to modify and run code located in your guest system using VSCode on host machine.
 
@@ -64,9 +85,9 @@ You can optionally change **Host** to whatever you want.
 7. To make your plugins work remotely open plugins explorer.
 In *LOCAL - INSTALLED* list find plugins you want to enable and click *Install in SSH: BlaBlaBla*.
 
-## Additional Environments
+### Additional environments
 
-### Manual Provision
+#### Manual provision
 
 When vagrant base environment is up and running to install additional tools or programs run the following command:
 ```
@@ -78,7 +99,7 @@ where ```<provision-name>``` is one from the list:
 * ```mssql-server``` - MS SQL Server
 * ```nodejs``` - Node.JS
 
-### Automatic Provision
+#### Automatic provision
 
 It is possible to run provision automatically on the first VM start up.
 Just find required tool mentioning in *Vagrantfile* configuration file and remove line ```run: "never"``` with trailing comma (,)
@@ -102,7 +123,7 @@ Thereafter **CPP Tools** will be installed automatically during the first ```vag
 
 More options when to run provision are described in [Vagrantfile documentation](https://www.vagrantup.com/docs/provisioning/basic_usage#run-once-always-or-never).
 
-## Configure VSCode to connect to remote MS SQL Server
+### Configure VSCode to connect to remote MS SQL Server
 
 1. Open **Extensions** pane, type **mssql** and select the **SQL Server (mssql)** extension to install.
 2. After the installation completes, reload the window to enable the extension.
@@ -115,3 +136,15 @@ More options when to run provision are described in [Vagrantfile documentation](
     * Password: SA_vagrant
     * Save Password: Yes
     * Profile Name: vagrant-sql-server
+
+## Windows 10
+
+### After the first start up
+
+1. Go to `Menu 'Start' -> Settings -> System -> Display -> Advanced display settings` and change `Resolution` to `1600x1200`.
+2. Go to `Menu 'Start' -> Settings -> System -> Power & sleep` and set both parameters to `Never`.
+
+### Configure Environment
+
+1. .NET 5.0 to compile projects for deploy.
+https://dotnet.microsoft.com/download/dotnet/5.0
